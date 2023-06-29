@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>stopwatch</title>
+
+    <style>
+        body{
+            background-color: green;
+
+            
+        }
+
+        
+        .btn{
+            background-color: black;
+            color: white;
+
+
+        }
+        
+
+
+    </style>
+</head>
+<body>
+
+   <center>
+     <h2>STOPWATCH</h2>
+    <div class="container">
+        <div class="display">00:00:00</div>
+        <button id="start" class="btn">start</button>
+        <button id="stop" class="btn">stop</button>
+        <button id="reset" class="btn">reset</button>
+    </div>
+   </center>
+
+    <script>
+
+        var startbutton=document.getElementById("start");
+        var stopbutton=document.getElementById("stop");
+        var resetbutton=document.getElementById("reset");
+        var display=document.querySelector(".display");
+
+        var startTime,elapsedTime;
+        var timeInterval;
+
+        function startTimer(){
+            startTime=Date.now() - elapsedTime;
+            timeInterval= setInterval(updateTimer,10);
+
+
+        }
+
+        function stopTimer(){
+            clearInterval(timeInterval);
+        }
+
+        function resetTime(){
+            clearInterval(timeInterval);
+            elapsedTime = 0;
+            display.innerHTML=formatTime(elapsedTime);
+        }
+
+        function updateTimer(){
+            elapsedTime=Date.now() - startTime;
+            display.innerHTML=formatTime(elapsedTime);
+
+        }
+
+        function formatTime(time){
+            var sec=Math.floor((time/1000) % 60);
+            var minutes= Math.floor((time/(1000 * 60)) % 60);
+            var hours=Math.floor((time/(1000 * 60 * 60)) % 24);
+
+            return(
+                ("0"+ hours).slice(-2) + ":" +
+                ("0"+ minutes).slice(-2) + ":" +
+                ("0"+ sec).slice(-2) 
+            );
+        }
+
+        startbutton.addEventListener("click",startTimer);
+        stopbutton.addEventListener("click",stopTimer);
+        resetbutton.addEventListener("click",resetTime);
+    </script>
+    
+</body>
+</html>
